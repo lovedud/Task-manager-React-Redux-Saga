@@ -2,6 +2,8 @@ $primary-base-color: #cf4242;
 $primary-dark-color: #3a2a47;
 $secondary-base-color: #4a5628;
 $secondary-dark-color: #7af56c;
+$adition-base-color: #d77e7e;
+$adition-dark-color: #c61d1d;
 $background-color: #f1f1f1;
 $white-color: #ffffff;
 $text-light-color: #bbb;
@@ -39,7 +41,6 @@ body {
 
   .content {
     background-color: $white-color;
-    padding: 1.5rem;
 
     form {
       display: flex;
@@ -78,6 +79,28 @@ body {
           cursor: pointer;
           background-color: $secondary-dark-color;
         }
+      }
+    }
+
+    .check-all {
+      width: 2rem;
+      height: 2rem;
+      background-color: $adition-base-color;
+      color: $white-color;
+      margin-left: 1rem;
+      margin-top: 1.1rem;
+      border: 0;
+      border-radius: 50%;
+      box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.2);
+      outline: none;
+
+      &.checked {
+        background-color: $adition-dark-color;
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: $adition-dark-color;
       }
     }
 

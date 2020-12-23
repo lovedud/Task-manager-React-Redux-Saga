@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import Header from '../components/Header';
@@ -38,6 +38,11 @@ const TodoList = ({
                       loadRequest,
                   }: Props) => {
 
+    const isAllChecked = () => {
+        return tasks.every(task => (task.complete))
+    }
+
+    const [checked, setChecked] = useState(true)
 
     useEffect(() => {
         loadRequest();
@@ -53,17 +58,46 @@ const TodoList = ({
             text: 'tasks left',
         });
 
+    const checkAll = () => {
+        if (checked) {
+            tasks.forEach((task) => {
+                toggleTask(task.id, false)
+            })
+        } else {
+            tasks.forEach((task) => {
+                toggleTask(task.id, true)
+            })
+        }
+    }
+
+    const deleteCompleted = () => {
+        tasks.forEach((task) => {
+            if (task.complete) {
+                removeTask(task.id)
+            }
+        })
+    }
+
     return (
         <div className="todo-list">
             <Header title="Todos" />
 
             <div className="content">
-                <TodoForm
-                    emptyList={!tasks.length}
-                    addItem={addTask}
-                />
+                <div>
+                    <TodoForm
+                        emptyList={!tasks.length}
+                        addItem={addTask}
+                    />
+                    <button className={isAllChecked() ? 'check-all checked' : 'check-all'} onClick={checkAll}>
+                        <i className="fas fa-check-circle"></i>
+                    </button>
+                    <button className="check-all" onClick={deleteCompleted}>
+                        <i className="fas fa-trash-alt"></i>
+                    </button>
+                </div>
 
-                {   tasks.length === 0
+
+                {   filterItems(tasks, filter).length === 0
                     ? (
                         <TodoMessage
                             filterState={filterState}
@@ -72,7 +106,7 @@ const TodoList = ({
                     ) : (
                         <>
                             <ul className="items">
-                                {tasks.map((task: Item) => (
+                                {filterItems(tasks, filter).map((task: Item) => (
                                     <TodoItem
                                         key={task.id}
                                         item={task}
@@ -94,9 +128,9 @@ const TodoList = ({
 
 const filterItems = (items: Item[], filter: string) => {
     switch (filter) {
-        case VisibilityFilters.SHOW_ACTIVE:
+        case "SHOW_ACTIVE":
             return items.filter((item) => !item.complete);
-        case VisibilityFilters.SHOW_COMPLETED:
+        case "SHOW_COMPLETED":
             return items.filter((item) => item.complete);
         default:
             return items;

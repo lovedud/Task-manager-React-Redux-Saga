@@ -36,18 +36,21 @@ export default ({
             {editing
                 ? (
                     <>
-                        <input
-                            className="edit-item"
-                            ref={inputText}
-                            defaultValue={text}
-                        />
+                        <form onSubmit={() => acceptEdit(id)}>
+                            <input
+                                className="edit-item"
+                                ref={inputText}
+                                defaultValue={text}
+                            />
+                        </form>
+
                         <div>
-              <span className="icon" role="presentation" onClick={() => acceptEdit(id)}>
-                <i className="fas fa-save" />
-              </span>
+                            <span className="icon" role="presentation" onClick={() => acceptEdit(id)}>
+                                <i className="fas fa-save" />
+                            </span>
                             <span className="icon" role="presentation" onClick={() => toggleEditItem(id, !editing)}>
-                <i className="fas fa-ban" />
-              </span>
+                                <i className="fas fa-ban" />
+                            </span>
                         </div>
                     </>
                 )
@@ -57,7 +60,6 @@ export default ({
                             <div
                                 onClick={
                                     () => {
-                                    console.log(complete);
                                     toggleItem(id, !complete)
                                 }}
                                 role="presentation"

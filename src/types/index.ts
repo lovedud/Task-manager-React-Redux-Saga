@@ -8,7 +8,8 @@ export enum ItemsTypes {
     REMOVE_TASK = 'REMOVE_TASK',
     LOAD_REQUEST = 'LOAD_REQUEST',
     LOAD_SUCCESS = 'LOAD_SUCCESS',
-    LOAD_FAILURE = 'LOAD_FAILURE'
+    LOAD_FAILURE = 'LOAD_FAILURE',
+    CHECK_ALL = 'CHECK_ALL',
 }
 
 // Filters
@@ -23,7 +24,8 @@ export enum VisibilityFilters {
 export interface TodoListActionTypes {
     type: string,
     payload: Item,
-    data: Item[]
+    data: Item[],
+    checkedAll: boolean,
 }
 
 export interface FilterActionTypes {
@@ -47,7 +49,7 @@ export interface Item {
 // State types
 
 export interface ItemsState {
-    readonly data: Item[]
+    readonly data: Item[],
 }
 export interface ApplicationState {
     tasks: ItemsState,

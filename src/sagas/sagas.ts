@@ -38,7 +38,6 @@ export function* updateTask({ payload }: TodoListActionTypes) {
 
 export function* toggleItem({ payload }: TodoListActionTypes) {
     try {
-        console.log(payload.complete)
         yield call(api.patch, `http://localhost:3000/tasks/${payload.id}`, {complete: payload.complete});
     } catch (error) {
         console.log('TOGGLE COMPLETE ERROR');
@@ -50,5 +49,13 @@ export function* deleteRequest({ payload }: TodoListActionTypes) {
         yield call(api.delete, `http://localhost:3000/tasks/${payload.id}`);
     } catch (error) {
         console.log('DELETE ERROR');
+    }
+}
+
+export function* checkAll() {
+    try {
+        yield call(api.get, `http://localhost:3000/checkAll/`);
+    } catch (error) {
+        console.log('CHECK ALL ERROR');
     }
 }

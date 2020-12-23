@@ -2,19 +2,7 @@
   "tasks": [
     {
       "id": 1,
-      "text": "Item 1 edited",
-      "editing": false,
-      "complete": false
-    },
-    {
-      "id": 3,
-      "text": "Item 3",
-      "editing": false,
-      "complete": true
-    },
-    {
-      "id": 0.9075673628717902,
-      "text": "randomtest",
+      "text": "Item 1 edited 2",
       "editing": false,
       "complete": true
     },
@@ -25,8 +13,8 @@
       "complete": false
     },
     {
-      "id": 353709,
-      "text": "fgfh",
+      "id": 66858,
+      "text": "sfawefad g",
       "editing": false,
       "complete": false
     }

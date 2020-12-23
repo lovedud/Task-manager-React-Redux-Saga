@@ -16,10 +16,10 @@ export default () => (
         <Router>
             <Switch>
                 <Route path="/done">
-                    <TodoList filter={VisibilityFilters.SHOW_COMPLETED} />
+                    <TodoList filter={"SHOW_COMPLETED"} />
                 </Route>
                 <Route path="/active">
-                    <TodoList filter={VisibilityFilters.SHOW_ACTIVE} />
+                    <TodoList filter={"SHOW_ACTIVE"} />
                 </Route>
                 <Route path="/" component={TodoList}/>
             </Switch>

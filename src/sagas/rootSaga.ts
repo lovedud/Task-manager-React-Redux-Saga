@@ -6,7 +6,8 @@ import {
     load,
     toggleItem,
     toggleEditTask,
-    updateTask
+    updateTask,
+    checkAll
 } from './sagas';
 
 export default function* rootSaga() {
@@ -17,5 +18,6 @@ export default function* rootSaga() {
         takeLatest(ItemsTypes.UPDATE_TASK, updateTask),
         takeLatest(ItemsTypes.TOGGLE_TASK, toggleItem),
         takeLatest(ItemsTypes.REMOVE_TASK, deleteRequest),
+        takeLatest(ItemsTypes.CHECK_ALL, checkAll),
     ]);
 }
