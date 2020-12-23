@@ -4,8 +4,10 @@ interface HeaderProps {
     title: string,
 }
 
-export default ({ title }: HeaderProps) => (
+const Header = ({ title }: HeaderProps) => (
     <div className="header">
         {title}
     </div>
 );
+
+export default Header;

@@ -10,7 +10,7 @@ interface CounterProps {
     },
 }
 
-export default ({ taskCounter: { counter, text } }: CounterProps) => (
+const Counter = ({ taskCounter: { counter, text } }: CounterProps) => (
     <div className="filters-container">
         <div>
       <span className="active">
@@ -32,3 +32,5 @@ export default ({ taskCounter: { counter, text } }: CounterProps) => (
         </div>
     </div>
 );
+
+export default Counter;

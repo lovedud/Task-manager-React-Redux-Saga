@@ -8,6 +8,7 @@ import TodoItem from '../components/TodoItem';
 import * as itemsActions from '../actions/tasks';
 import { ApplicationState, Item, VisibilityFilters } from '../types';
 import TodoMessage from '../components/TodoMessage';
+import {addTask, loadRequest, removeTask, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
 
 interface StateProps {
     tasks: Item[],
@@ -142,7 +143,16 @@ const mapStateToProps = (state: ApplicationState) => ({
     filterState: state.filterState,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(itemsActions, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        addTask: (data: Item) => dispatch(addTask(data)),
+        toggleTask: (id: number, complete: boolean) => dispatch(toggleTask(id, complete)),
+        toggleEditTask: (id: number, editing: boolean) => dispatch(toggleEditTask(id, editing)),
+        updateTask: (id: number, text: string) => dispatch(updateTask(id, text)),
+        removeTask: (id: number) => dispatch(removeTask(id)),
+        loadRequest: () => dispatch(loadRequest()),
+    }
+}
 
 export default connect(
     mapStateToProps,

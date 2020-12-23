@@ -9,7 +9,7 @@ interface TodoItemProps {
     removeItem(id: number): void
 }
 
-export default ({
+const TodoItem = ({
                     item: {
                         id, text, editing, complete,
                     },
@@ -80,3 +80,5 @@ export default ({
         </li>
     );
 };
+
+export default TodoItem;

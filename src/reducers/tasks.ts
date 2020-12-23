@@ -11,10 +11,10 @@ export default (state = initialState, action: TodoListActionTypes): ItemsState =
                 data: [
                     ...state.data,
                     {
-                        id: Math.floor(Math.random() * Math.floor(1000000)),
+                        id: state.data.length,
                         text: action.payload.text,
-                        editing: false,
-                        complete: false,
+                        editing: action.payload.editing,
+                        complete: action.payload.complete,
                     },
                 ],
             };

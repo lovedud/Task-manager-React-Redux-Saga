@@ -6,7 +6,7 @@ interface TodoFormProps {
     addItem(data: Item): void,
 }
 
-export default ({ emptyList, addItem }: TodoFormProps) => {
+const TodoForm = ({ emptyList, addItem }: TodoFormProps) => {
     const inputText = useRef<HTMLInputElement>(null);
 
     const focusInputText = () => inputText?.current?.focus();
@@ -31,10 +31,12 @@ export default ({ emptyList, addItem }: TodoFormProps) => {
 
     return (
         <form onSubmit={submitHandler}>
-            <input ref={inputText} placeholder="What needs to be done?" />
+            <input ref={inputText} placeholder="What needs to be done?"  />
             <button type="submit">
                 <i className="fas fa-plus" />
             </button>
         </form>
     );
 };
+
+export default TodoForm;

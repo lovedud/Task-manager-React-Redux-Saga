@@ -11,7 +11,7 @@ interface MessageProps {
     }
 }
 
-export default ({ filterState, getTaskCounter }: MessageProps) => (
+const Message = ({ filterState, getTaskCounter }: MessageProps) => (
     filterState === VisibilityFilters.SHOW_COMPLETED
         ? (
             <>
@@ -20,3 +20,5 @@ export default ({ filterState, getTaskCounter }: MessageProps) => (
             </>
         ) : <EmptyMessage message="Add your first To Do!" />
 );
+
+export default Message;
