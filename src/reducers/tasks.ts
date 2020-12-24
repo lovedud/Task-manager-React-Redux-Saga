@@ -11,7 +11,7 @@ export default (state = initialState, action: TodoListActionTypes): TasksState =
                 data: [
                     ...state.data,
                     {
-                        id: state.data.length,
+                        id: state.data.length + 1,
                         text: action.payload.text,
                         editing: action.payload.editing,
                         complete: action.payload.complete,

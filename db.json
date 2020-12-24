@@ -1,22 +1,16 @@
 {
   "tasks": [
     {
-      "id": 422533,
-      "text": "ыва]ываы",
+      "text": "Test1",
       "editing": false,
-      "complete": false
+      "complete": false,
+      "id": 1
     },
     {
-      "id": 124577,
-      "text": "ывяывма",
+      "text": "Tesr2",
       "editing": false,
-      "complete": false
-    },
-    {
-      "id": 996714,
-      "text": "ывпявап",
-      "editing": false,
-      "complete": false
+      "complete": false,
+      "id": 2
     }
   ]
 }
