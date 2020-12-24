@@ -40,7 +40,6 @@ const TodoList = ({
                   }: Props) => {
 
     const isAllChecked = () => {
-        console.log(checked)
         return tasks.every(task => (task.complete))
     }
 
