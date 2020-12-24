@@ -36,7 +36,7 @@ export function* updateTask({ payload }: TodoListActionTypes) {
     }
 }
 
-export function* toggleItem({ payload }: TodoListActionTypes) {
+export function* toggleTask({ payload }: TodoListActionTypes) {
     try {
         yield call(api.patch, `http://localhost:3000/tasks/${payload.id}`, {complete: payload.complete});
     } catch (error) {

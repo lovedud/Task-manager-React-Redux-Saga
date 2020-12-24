@@ -1,6 +1,6 @@
 // Actions
 
-export enum ItemsTypes {
+export enum TasksTypes {
     ADD_TASK = 'ADD_TASK',
     TOGGLE_TASK = 'TOGGLE_TASK',
     TOGGLE_EDIT_TASK = 'TOGGLE_EDIT_TASK',
@@ -23,8 +23,8 @@ export enum VisibilityFilters {
 
 export interface TodoListActionTypes {
     type: string,
-    payload: Item,
-    data: Item[],
+    payload: Task,
+    data: Task[],
     checkedAll: boolean,
 }
 
@@ -38,7 +38,7 @@ export interface FilterActionTypes {
 
 //Data types
 
-export interface Item {
+export interface Task {
     id: number,
     text: string,
     editing: boolean,
@@ -48,10 +48,10 @@ export interface Item {
 
 // State types
 
-export interface ItemsState {
-    readonly data: Item[],
+export interface TasksState {
+    readonly data: Task[],
 }
 export interface ApplicationState {
-    tasks: ItemsState,
+    tasks: TasksState,
     filterState: string
 }

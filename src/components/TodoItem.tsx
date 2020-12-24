@@ -1,23 +1,23 @@
 import React, { useRef, useEffect } from 'react';
-import { Item } from '../types';
+import { Task } from '../types';
 
-interface TodoItemProps {
-    item: Item,
-    toggleItem(id: number, complete: boolean): void,
-    toggleEditItem(id: number, editing: boolean): void,
-    updateItem(id: number, text: string): void,
-    removeItem(id: number): void
+interface TodoTaskProps {
+    item: Task,
+    toggleTask(id: number, complete: boolean): void,
+    toggleEditTask(id: number, editing: boolean): void,
+    updateTask(id: number, text: string): void,
+    removeTask(id: number): void
 }
 
-const TodoItem = ({
+const TodoTask = ({
                     item: {
                         id, text, editing, complete,
                     },
-                    toggleItem,
-                    toggleEditItem,
-                    updateItem,
-                    removeItem,
-                }: TodoItemProps) => {
+                    toggleTask,
+                    toggleEditTask,
+                    updateTask,
+                    removeTask,
+                }: TodoTaskProps) => {
     const inputText = useRef<HTMLInputElement>(null);
 
     useEffect(() => inputText?.current?.focus());
@@ -26,8 +26,8 @@ const TodoItem = ({
         const itemText = inputText?.current?.value?.trim() || '';
 
         if (itemText !== '') {
-            updateItem(itemID, itemText);
-            toggleEditItem(itemID, !editing);
+            updateTask(itemID, itemText);
+            toggleEditTask(itemID, !editing);
         }
     };
 
@@ -48,7 +48,7 @@ const TodoItem = ({
                             <span className="icon" role="presentation" onClick={() => acceptEdit(id)}>
                                 <i className="fas fa-save" />
                             </span>
-                            <span className="icon" role="presentation" onClick={() => toggleEditItem(id, !editing)}>
+                            <span className="icon" role="presentation" onClick={() => toggleEditTask(id, !editing)}>
                                 <i className="fas fa-ban" />
                             </span>
                         </div>
@@ -60,7 +60,7 @@ const TodoItem = ({
                             <div
                                 onClick={
                                     () => {
-                                    toggleItem(id, !complete)
+                                        toggleTask(id, !complete)
                                 }}
                                 role="presentation"
                                 className={complete ? 'checkbox-item checked' : 'checkbox-item'}
@@ -68,10 +68,10 @@ const TodoItem = ({
                             <span>{complete ? <s>{text}</s> : text}</span>
                         </div>
                         <div>
-              <span className="icon" role="presentation" onClick={() => toggleEditItem(id, !editing)}>
+              <span className="icon" role="presentation" onClick={() => toggleEditTask(id, !editing)}>
                 <i className="fas fa-pencil-alt" />
               </span>
-                            <span className="icon" role="presentation" onClick={() => removeItem(id)}>
+                            <span className="icon" role="presentation" onClick={() => removeTask(id)}>
                 <i className="fas fa-trash-alt" />
               </span>
                         </div>
@@ -81,4 +81,4 @@ const TodoItem = ({
     );
 };
 
-export default TodoItem;
+export default TodoTask;

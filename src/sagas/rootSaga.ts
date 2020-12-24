@@ -1,10 +1,10 @@
 import { all, takeLatest } from 'redux-saga/effects';
-import { ItemsTypes } from '../types';
+import { TasksTypes } from '../types';
 import {
     addTask,
     deleteRequest,
     load,
-    toggleItem,
+    toggleTask,
     toggleEditTask,
     updateTask,
     checkAll
@@ -12,12 +12,12 @@ import {
 
 export default function* rootSaga() {
     return yield all([
-        takeLatest(ItemsTypes.LOAD_REQUEST, load),
-        takeLatest(ItemsTypes.ADD_TASK, addTask),
-        takeLatest(ItemsTypes.TOGGLE_EDIT_TASK, toggleEditTask),
-        takeLatest(ItemsTypes.UPDATE_TASK, updateTask),
-        takeLatest(ItemsTypes.TOGGLE_TASK, toggleItem),
-        takeLatest(ItemsTypes.REMOVE_TASK, deleteRequest),
-        takeLatest(ItemsTypes.CHECK_ALL, checkAll),
+        takeLatest(TasksTypes.LOAD_REQUEST, load),
+        takeLatest(TasksTypes.ADD_TASK, addTask),
+        takeLatest(TasksTypes.TOGGLE_EDIT_TASK, toggleEditTask),
+        takeLatest(TasksTypes.UPDATE_TASK, updateTask),
+        takeLatest(TasksTypes.TOGGLE_TASK, toggleTask),
+        takeLatest(TasksTypes.REMOVE_TASK, deleteRequest),
+        takeLatest(TasksTypes.CHECK_ALL, checkAll),
     ]);
 }

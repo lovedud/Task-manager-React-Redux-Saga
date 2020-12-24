@@ -1,12 +1,12 @@
-import { ItemsState, ItemsTypes, TodoListActionTypes } from '../types';
+import { TasksState, TasksTypes, TodoListActionTypes } from '../types';
 
-const initialState: ItemsState = {
+const initialState: TasksState = {
     data: []
 };
 
-export default (state = initialState, action: TodoListActionTypes): ItemsState => {
+export default (state = initialState, action: TodoListActionTypes): TasksState => {
     switch (action.type) {
-        case ItemsTypes.ADD_TASK:
+        case TasksTypes.ADD_TASK:
             return {
                 data: [
                     ...state.data,
@@ -19,41 +19,41 @@ export default (state = initialState, action: TodoListActionTypes): ItemsState =
                 ],
             };
 
-        case ItemsTypes.TOGGLE_TASK:
+        case TasksTypes.TOGGLE_TASK:
             return {
                 data: state.data.map((item) => ((item.id === action.payload.id)
-                    ? { ...item, complete: !item.complete }
+                    ? { ...item, complete: action.payload.complete }
                     : item)),
             };
 
-        case ItemsTypes.TOGGLE_EDIT_TASK:
+        case TasksTypes.TOGGLE_EDIT_TASK:
             return {
                 data: state.data.map((item) => ((item.id === action.payload.id)
                     ? { ...item, editing: !item.editing }
                     : item)),
             };
 
-        case ItemsTypes.UPDATE_TASK:
+        case TasksTypes.UPDATE_TASK:
             return {
                 data: state.data.map((item) => ((item.id === action.payload.id)
                     ? { ...item, text: action.payload.text }
                     : item)),
             };
 
-        case ItemsTypes.REMOVE_TASK:
+        case TasksTypes.REMOVE_TASK:
             return {
                 data: state.data.filter((item) => item.id !== action.payload.id),
             };
 
-        case ItemsTypes.LOAD_REQUEST:
+        case TasksTypes.LOAD_REQUEST:
             return { ...state };
 
-        case ItemsTypes.LOAD_SUCCESS:
+        case TasksTypes.LOAD_SUCCESS:
             return {
                 data: action.data,
             };
 
-        case ItemsTypes.LOAD_FAILURE:
+        case TasksTypes.LOAD_FAILURE:
             return {
                 data: [],
             };

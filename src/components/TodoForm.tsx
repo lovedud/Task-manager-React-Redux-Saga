@@ -1,12 +1,12 @@
 import React, { FormEvent, useRef, useEffect } from 'react';
-import {Item} from "../types";
+import {Task} from "../types";
 
 interface TodoFormProps {
     emptyList: boolean,
-    addItem(data: Item): void,
+    addTask(data: Task): void,
 }
 
-const TodoForm = ({ emptyList, addItem }: TodoFormProps) => {
+const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
     const inputText = useRef<HTMLInputElement>(null);
 
     const focusInputText = () => inputText?.current?.focus();
@@ -19,7 +19,7 @@ const TodoForm = ({ emptyList, addItem }: TodoFormProps) => {
         e.preventDefault();
 
         if (inputText && inputText.current && inputText.current.value !== '') {
-            addItem({
+            addTask({
                 id: Math.floor(Math.random() * Math.floor(1000000)),
                 text: inputText.current.value,
                 editing: false,

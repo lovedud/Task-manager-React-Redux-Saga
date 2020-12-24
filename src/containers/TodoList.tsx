@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import Header from '../components/Header';
 import TodoFilters from '../components/TodoFilters';
 import TodoForm from '../components/TodoForm';
-import TodoItem from '../components/TodoItem';
-import * as itemsActions from '../actions/tasks';
-import { ApplicationState, Item, VisibilityFilters } from '../types';
+import TodoTask from '../components/TodoItem';
+import * as TasksActions from '../actions/tasks';
+import { ApplicationState, Task, VisibilityFilters } from '../types';
 import TodoMessage from '../components/TodoMessage';
 import {addTask, loadRequest, removeTask, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
 
 interface StateProps {
-    tasks: Item[],
+    tasks: Task[],
     filterState: string
     filter: string
 }
 
 interface DispatchProps {
-    addTask(data: Item): void,
+    addTask(data: Task): void,
     toggleTask(id: number, complete: boolean): void,
     toggleEditTask(id: number, editing: boolean): void,
     updateTask(id: number, text: string): void,
@@ -40,6 +40,7 @@ const TodoList = ({
                   }: Props) => {
 
     const isAllChecked = () => {
+        console.log(checked)
         return tasks.every(task => (task.complete))
     }
 
@@ -52,21 +53,22 @@ const TodoList = ({
 
     const getTaskCounter = () => (filterState === VisibilityFilters.SHOW_COMPLETED
         ? {
-            counter: tasks.filter((task: Item) => task.complete).length,
+            counter: tasks.filter((task: Task) => task.complete).length,
             text: 'completed tasks',
         } : {
-            counter: tasks.filter((task: Item) => !task.complete).length,
+            counter: tasks.filter((task: Task) => !task.complete).length,
             text: 'tasks left',
         });
 
     const checkAll = () => {
+        setChecked(isAllChecked())
         if (checked) {
             tasks.forEach((task) => {
-                toggleTask(task.id, false)
-            })
-        } else {
-            tasks.forEach((task) => {
                 toggleTask(task.id, true)
+            })
+        } else if (!checked) {
+            tasks.forEach((task) => {
+                toggleTask(task.id, false)
             })
         }
     }
@@ -87,7 +89,7 @@ const TodoList = ({
                 <div>
                     <TodoForm
                         emptyList={!tasks.length}
-                        addItem={addTask}
+                        addTask={addTask}
                     />
                     <button className={isAllChecked() ? 'check-all checked' : 'check-all'} onClick={checkAll}>
                         <i className="fas fa-check-circle"></i>
@@ -107,14 +109,14 @@ const TodoList = ({
                     ) : (
                         <>
                             <ul className="items">
-                                {filterItems(tasks, filter).map((task: Item) => (
-                                    <TodoItem
+                                {filterItems(tasks, filter).map((task: Task) => (
+                                    <TodoTask
                                         key={task.id}
                                         item={task}
-                                        toggleItem={toggleTask}
-                                        toggleEditItem={toggleEditTask}
-                                        updateItem={updateTask}
-                                        removeItem={removeTask}
+                                        toggleTask={toggleTask}
+                                        toggleEditTask={toggleEditTask}
+                                        updateTask={updateTask}
+                                        removeTask={removeTask}
                                     />
                                 ))}
                             </ul>
@@ -127,7 +129,7 @@ const TodoList = ({
     );
 };
 
-const filterItems = (items: Item[], filter: string) => {
+const filterItems = (items: Task[], filter: string) => {
     switch (filter) {
         case "SHOW_ACTIVE":
             return items.filter((item) => !item.complete);
@@ -145,7 +147,7 @@ const mapStateToProps = (state: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addTask: (data: Item) => dispatch(addTask(data)),
+        addTask: (data: Task) => dispatch(addTask(data)),
         toggleTask: (id: number, complete: boolean) => dispatch(toggleTask(id, complete)),
         toggleEditTask: (id: number, editing: boolean) => dispatch(toggleEditTask(id, editing)),
         updateTask: (id: number, text: string) => dispatch(updateTask(id, text)),
