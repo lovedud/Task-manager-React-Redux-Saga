@@ -8,10 +8,9 @@ import {
 import store from './store/store';
 import './styles.scss';
 import TodoList from './containers/TodoList';
-import {VisibilityFilters} from "./types";
 
 
-export default () => (
+const App = () => (
     <Provider store={store}>
         <Router>
             <Switch>
@@ -26,3 +25,5 @@ export default () => (
         </Router>
     </Provider>
 );
+
+export default App;

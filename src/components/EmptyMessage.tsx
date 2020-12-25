@@ -11,4 +11,4 @@ const EmptyMessage = ({ message }: EmptyMessageProps) => (
     </div>
 );
 
-export default EmptyMessage
+export default EmptyMessage;

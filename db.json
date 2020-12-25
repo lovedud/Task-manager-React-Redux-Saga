@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "text": "Test1",
+      "text": "Test1 edited",
       "editing": false,
       "complete": false,
       "id": 1
@@ -11,6 +11,12 @@
       "editing": false,
       "complete": false,
       "id": 2
+    },
+    {
+      "text": "лололо",
+      "editing": false,
+      "complete": false,
+      "id": 3
     }
   ]
 }

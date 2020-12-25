@@ -1,5 +1,4 @@
 import React, { FormEvent, useRef, useEffect } from 'react';
-import {Task} from "../types";
 
 interface TodoFormProps {
     emptyList: boolean,

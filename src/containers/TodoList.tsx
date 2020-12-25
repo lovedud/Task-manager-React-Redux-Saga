@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import TodoFilters from '../components/TodoFilters';
 import TodoForm from '../components/TodoForm';
 import TodoTask from '../components/TodoItem';
-import * as TasksActions from '../actions/tasks';
 import { ApplicationState, Task, VisibilityFilters } from '../types';
 import TodoMessage from '../components/TodoMessage';
 import {addTask, loadRequest, removeTask, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
@@ -120,9 +119,9 @@ const TodoList = ({
                                 ))}
                             </ul>
 
-                            <TodoFilters taskCounter={getTaskCounter()}/>
                         </>
                     )}
+                <TodoFilters taskCounter={getTaskCounter()}/>
             </div>
         </div>
     );

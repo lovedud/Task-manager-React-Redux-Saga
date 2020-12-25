@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import * as filterActions from '../actions/filter';
 import { ApplicationState } from '../types';
 import { updateFilter } from "../actions/filter";
 
@@ -29,7 +28,7 @@ const FilterLink = ({
     <span
         role="presentation"
         onClick={() => updateFilter(filter)}
-        className={filterSelected ? 'active' : ''}
+        className={'active'}
     >
     {children}
   </span>
