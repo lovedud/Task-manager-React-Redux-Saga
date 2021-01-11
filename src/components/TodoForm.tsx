@@ -1,4 +1,5 @@
 import React, { FormEvent, useRef, useEffect } from 'react';
+import Dropdown from "./Dropdown";
 
 interface TodoFormProps {
     emptyList: boolean,
@@ -26,7 +27,10 @@ const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
     return (
         <form onSubmit={submitHandler}>
             <input ref={inputText} placeholder="What needs to be done?"  />
-            <button type="submit">
+
+            <Dropdown />
+
+            <button className="add-btn" type="submit">
                 <i className="fas fa-plus" />
             </button>
         </form>

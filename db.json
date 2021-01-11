@@ -3,7 +3,7 @@
     {
       "text": "Test1 edited",
       "editing": false,
-      "complete": false,
+      "complete": true,
       "id": 1
     },
     {

@@ -13,7 +13,6 @@ $fa-font-path: "~font-awesome/fonts";
 
 * {
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
 
   a {
@@ -65,7 +64,7 @@ body {
         opacity: 0.5;
       }
 
-      button {
+      .add-btn {
         width: 2.5rem;
         height: 2.5rem;
         background-color: $secondary-base-color;

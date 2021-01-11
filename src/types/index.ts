@@ -53,5 +53,5 @@ export interface TasksState {
 }
 export interface ApplicationState {
     tasks: TasksState,
-    filterState: string
+    filterState: string,
 }

@@ -8,6 +8,7 @@ import TodoTask from '../components/TodoItem';
 import { ApplicationState, Task, VisibilityFilters } from '../types';
 import TodoMessage from '../components/TodoMessage';
 import {addTask, loadRequest, removeTask, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
+import { getTodos } from "../selectors";
 
 interface StateProps {
     tasks: Task[],
@@ -139,7 +140,7 @@ const filterItems = (items: Task[], filter: string) => {
 };
 
 const mapStateToProps = (state: ApplicationState) => ({
-    tasks: filterItems(state.tasks.data, (state.filterState)),
+    tasks: getTodos(state),
     filterState: state.filterState,
 });
 
