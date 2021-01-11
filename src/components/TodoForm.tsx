@@ -3,11 +3,12 @@ import Dropdown from "./Dropdown";
 
 interface TodoFormProps {
     emptyList: boolean,
-    addTask(data: { text: string, editing: boolean, complete: boolean }): void,
+    addTask(data: { text: string, editing: boolean, complete: boolean, priority: string }): void,
 }
 
 const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
     const inputText = useRef<HTMLInputElement>(null);
+    const selectText = useRef<HTMLSelectElement>(null);
 
     const focusInputText = () => inputText?.current?.focus();
 
@@ -18,8 +19,11 @@ const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
 
-        if (inputText && inputText.current && inputText.current.value !== '') {
-            addTask({text: inputText.current.value, editing: false, complete: false});
+        if (
+            inputText && inputText.current && inputText.current.value !== '' &&
+            selectText && selectText.current && selectText.current.value !== ''
+        ) {
+            addTask({text: inputText.current.value, editing: false, complete: false, priority: selectText.current.value});
             inputText.current.value = '';
         }
     };

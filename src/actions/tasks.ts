@@ -1,6 +1,6 @@
 import { Task, TasksTypes } from '../types';
 
-export const addTask = (data: { text: string }) => ({
+export const addTask = (data: { text: string, priority: string }) => ({
     type: TasksTypes.ADD_TASK,
     payload: data,
 });

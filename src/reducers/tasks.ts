@@ -15,6 +15,7 @@ export default (state = initialState, action: TodoListActionTypes): TasksState =
                         text: action.payload.text,
                         editing: action.payload.editing,
                         complete: action.payload.complete,
+                        priority: action.payload.priority,
                     },
                 ],
             };

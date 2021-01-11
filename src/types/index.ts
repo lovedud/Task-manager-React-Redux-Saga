@@ -42,7 +42,8 @@ export interface Task {
     id: number,
     text: string,
     editing: boolean,
-    complete: boolean
+    complete: boolean,
+    priority: string,
 }
 
 

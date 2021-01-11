@@ -17,7 +17,6 @@ class Dropdown extends React.Component<{}, DropdownProps> {
     render() {
         return (
                 <label>
-                    <div>Priority:</div>
                     <select value={this.state.priority} onChange={this.handleChange}>
                         <option value="High">High</option>
                         <option value="Medium">Medium</option>

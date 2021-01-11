@@ -17,7 +17,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    addTask(data: { text: string, editing: boolean, complete: boolean }): void,
+    addTask(data: { text: string, editing: boolean, complete: boolean, priority: string }): void,
     toggleTask(id: number, complete: boolean): void,
     toggleEditTask(id: number, editing: boolean): void,
     updateTask(id: number, text: string): void,
@@ -146,7 +146,7 @@ const mapStateToProps = (state: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addTask: (data: { text: string, editing: boolean, complete: boolean }) => dispatch(addTask(data)),
+        addTask,
         toggleTask: (id: number, complete: boolean) => dispatch(toggleTask(id, complete)),
         toggleEditTask: (id: number, editing: boolean) => dispatch(toggleEditTask(id, editing)),
         updateTask: (id: number, text: string) => dispatch(updateTask(id, text)),
