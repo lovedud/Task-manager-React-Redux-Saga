@@ -1,22 +1,32 @@
 {
   "tasks": [
     {
-      "text": "Test1 edited",
-      "editing": false,
-      "complete": true,
-      "id": 1
-    },
-    {
-      "text": "Tesr2",
+      "text": "gfghdfg",
       "editing": false,
       "complete": false,
-      "id": 2
+      "priority": "Low",
+      "id": 5
     },
     {
-      "text": "лололо",
+      "text": "fgfgbfg",
       "editing": false,
       "complete": false,
-      "id": 3
+      "priority": "High",
+      "id": 7
+    },
+    {
+      "text": "klk",
+      "editing": false,
+      "complete": false,
+      "priority": "Important",
+      "id": 8
+    },
+    {
+      "text": "fdgdfg",
+      "editing": false,
+      "complete": false,
+      "priority": "Important",
+      "id": 9
     }
   ]
 }

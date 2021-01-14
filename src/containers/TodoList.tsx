@@ -5,15 +5,16 @@ import Header from '../components/Header';
 import TodoFilters from '../components/TodoFilters';
 import TodoForm from '../components/TodoForm';
 import TodoTask from '../components/TodoItem';
-import { ApplicationState, Task, VisibilityFilters } from '../types';
+import {ApplicationState, Task, VisibilityFilters} from '../types';
 import TodoMessage from '../components/TodoMessage';
 import {addTask, loadRequest, removeTask, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
-import { getTodos } from "../selectors";
+import {getTodos} from "../selectors";
 
 interface StateProps {
     tasks: Task[],
-    filterState: string
-    filter: string
+    filterState: string,
+    filter: string,
+    sortState: boolean
 }
 
 interface DispatchProps {
@@ -22,7 +23,8 @@ interface DispatchProps {
     toggleEditTask(id: number, editing: boolean): void,
     updateTask(id: number, text: string): void,
     removeTask(id: number): void,
-    loadRequest(): void
+    loadRequest(): void,
+    onSortTasks(prop: boolean): void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -30,6 +32,7 @@ type Props = StateProps & DispatchProps;
 const TodoList = ({
                       tasks,
                       filter,
+                      sortState,
                       addTask,
                       toggleTask,
                       toggleEditTask,
@@ -37,18 +40,19 @@ const TodoList = ({
                       removeTask,
                       filterState,
                       loadRequest,
+                      onSortTasks,
                   }: Props) => {
 
-    const isAllChecked = () => {
-        return tasks.every(task => (task.complete))
-    }
-
-    const [checked, setChecked] = useState(true)
+    const [checked, setChecked] = useState(true);
+    const [sorted, setSorted] = useState(false)
 
     useEffect(() => {
         loadRequest();
     }, [loadRequest]);
 
+    const isAllChecked = () => {
+        return tasks.every(task => (task.complete))
+    }
 
     const getTaskCounter = () => (filterState === VisibilityFilters.SHOW_COMPLETED
         ? {
@@ -80,6 +84,11 @@ const TodoList = ({
         })
     }
 
+    const sortingTasks = () => {
+        setSorted(!sorted);
+        onSortTasks(sorted)
+    }
+
     return (
         <div className="todo-list">
             <Header title="Todos" />
@@ -96,16 +105,27 @@ const TodoList = ({
                     <button className="check-all" onClick={deleteCompleted}>
                         <i className="fas fa-trash-alt"></i>
                     </button>
+
+                    <span>
+                        Priority
+                        <button onClick={sortingTasks}>
+                            <i className="fa fa-sort" aria-hidden="true"></i>
+                        </button>
+                    </span>
+
+                    <span>
+
+                    </span>
                 </div>
 
-
-                {   filterItems(tasks, filter).length === 0
+                {    filterItems(tasks, filter).length === 0
                     ? (
                         <TodoMessage
                             filterState={filterState}
                             getTaskCounter={getTaskCounter}
                         />
                     ) : (
+
                         <>
                             <ul className="items">
                                 {filterItems(tasks, filter).map((task: Task) => (
@@ -142,16 +162,18 @@ const filterItems = (items: Task[], filter: string) => {
 const mapStateToProps = (state: ApplicationState) => ({
     tasks: getTodos(state),
     filterState: state.filterState,
+    sortState: state.sortTasks
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        addTask,
+        addTask: (data: { text: string, editing: boolean, complete: boolean, priority: string }) => dispatch(addTask(data)),
         toggleTask: (id: number, complete: boolean) => dispatch(toggleTask(id, complete)),
         toggleEditTask: (id: number, editing: boolean) => dispatch(toggleEditTask(id, editing)),
         updateTask: (id: number, text: string) => dispatch(updateTask(id, text)),
         removeTask: (id: number) => dispatch(removeTask(id)),
         loadRequest: () => dispatch(loadRequest()),
+        onSortTasks: (prop: boolean) => {dispatch({ type: 'SORT_TASKS', payload: prop })}
     }
 }
 

@@ -10,6 +10,7 @@ export enum TasksTypes {
     LOAD_SUCCESS = 'LOAD_SUCCESS',
     LOAD_FAILURE = 'LOAD_FAILURE',
     CHECK_ALL = 'CHECK_ALL',
+    SORT_TASKS = 'SORT_TASKS',
 }
 
 // Filters
@@ -55,4 +56,5 @@ export interface TasksState {
 export interface ApplicationState {
     tasks: TasksState,
     filterState: string,
+    sortTasks: boolean,
 }

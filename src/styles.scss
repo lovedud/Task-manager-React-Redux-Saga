@@ -164,6 +164,23 @@ body {
       }
     }
 
+    span {
+      margin-left: 1.5rem;
+
+      button {
+        margin-left: 0.5rem;
+        padding: .4em .4em .4em .4em;
+        box-sizing: border-box;
+        border: 1px solid #aaa;
+        box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+        border-radius: .5em;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #fff;
+      }
+    }
+
     .items {
       margin: 1rem 0;
 
@@ -174,6 +191,18 @@ body {
         line-height: 4rem;
         color: $text-color;
         margin: 0 1.2rem;
+
+        .high_priority {
+          color: #c61d1d;
+        }
+
+        .imp_priority {
+          color: #309828;
+        }
+
+        .low_priority {
+          color: #25eada;
+        }
 
         .edit-item {
           flex: 1;

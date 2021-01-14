@@ -20,6 +20,11 @@ export default (state = initialState, action: TodoListActionTypes): TasksState =
                 ],
             };
 
+        case TasksTypes.SORT_TASKS:
+            return {
+                data: state.data.sort((a, b) =>  a.priority < b.priority ? 1 : -1 )
+            };
+
         case TasksTypes.TOGGLE_TASK:
             return {
                 data: state.data.map((item) => ((item.id === action.payload.id)

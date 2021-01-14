@@ -2,29 +2,24 @@ import React from "react";
 
 interface DropdownProps {
     priority: string,
+    setPriority(priority: string): void,
 }
 
-class Dropdown extends React.Component<{}, DropdownProps> {
-    constructor(props: any) {
-        super(props);
-        this.state = { priority: "Medium" };
-    }
+const Dropdown = ({ priority, setPriority }: DropdownProps) => {
 
-    handleChange = (event: any)=> {
-        this.setState({ priority: event.target.value });
+    const handleChange = (event: any)=> {
+        setPriority(event.target.value);
     };
 
-    render() {
-        return (
-                <label>
-                    <select value={this.state.priority} onChange={this.handleChange}>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
-                    </select>
-                </label>
-        );
-    }
+    return (
+        <label>
+            <select value={priority} onChange={handleChange}>
+                <option className="high_priority" value="High">High</option>
+                <option className="imp_priority" value="Important">Important</option>
+                <option className="low_priority" value="Low">Low</option>
+            </select>
+        </label>
+    );
 }
 
 export default Dropdown

@@ -1,4 +1,4 @@
-import React, { FormEvent, useRef, useEffect } from 'react';
+import React, {FormEvent, useRef, useEffect, useState} from 'react';
 import Dropdown from "./Dropdown";
 
 interface TodoFormProps {
@@ -8,7 +8,7 @@ interface TodoFormProps {
 
 const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
     const inputText = useRef<HTMLInputElement>(null);
-    const selectText = useRef<HTMLSelectElement>(null);
+    const [priority, setPriority] = useState('Important');
 
     const focusInputText = () => inputText?.current?.focus();
 
@@ -19,12 +19,11 @@ const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
 
-        if (
-            inputText && inputText.current && inputText.current.value !== '' &&
-            selectText && selectText.current && selectText.current.value !== ''
-        ) {
-            addTask({text: inputText.current.value, editing: false, complete: false, priority: selectText.current.value});
+        if (inputText && inputText.current && inputText.current.value !== '')
+        {
+            addTask({text: inputText.current.value, editing: false, complete: false, priority: priority});
             inputText.current.value = '';
+            console.log({text: inputText.current.value, editing: false, complete: false, priority: priority})
         }
     };
 
@@ -32,7 +31,7 @@ const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
         <form onSubmit={submitHandler}>
             <input ref={inputText} placeholder="What needs to be done?"  />
 
-            <Dropdown />
+            <Dropdown priority={priority} setPriority={setPriority} />
 
             <button className="add-btn" type="submit">
                 <i className="fas fa-plus" />

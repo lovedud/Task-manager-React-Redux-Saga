@@ -11,7 +11,7 @@ interface TodoTaskProps {
 
 const TodoTask = ({
                     item: {
-                        id, text, editing, complete,
+                        id, text, editing, complete, priority
                     },
                     toggleTask,
                     toggleEditTask,
@@ -30,6 +30,14 @@ const TodoTask = ({
             toggleEditTask(itemID, !editing);
         }
     };
+
+    const setClassName = () => {
+        switch (priority) {
+            case 'High': return  'high_priority';
+            case 'Important': return  'imp_priority' ;
+            case 'Low': return  'low_priority';
+        }
+    }
 
     return (
         <li>
@@ -67,13 +75,14 @@ const TodoTask = ({
                             />
                             <span>{complete ? <s>{text}</s> : text}</span>
                         </div>
+                        <div className={setClassName()}>{priority}</div>
                         <div>
-              <span className="icon" role="presentation" onClick={() => toggleEditTask(id, !editing)}>
-                <i className="fas fa-pencil-alt" />
-              </span>
+                            <span className="icon" role="presentation" onClick={() => toggleEditTask(id, !editing)}>
+                                <i className="fas fa-pencil-alt" />
+                            </span>
                             <span className="icon" role="presentation" onClick={() => removeTask(id)}>
-                <i className="fas fa-trash-alt" />
-              </span>
+                                <i className="fas fa-trash-alt" />
+                            </span>
                         </div>
                     </>
                 )}

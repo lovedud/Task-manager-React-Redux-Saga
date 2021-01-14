@@ -1,4 +1,5 @@
 import { Task, TasksTypes } from '../types';
+import {resolveSrv} from "dns";
 
 export const addTask = (data: { text: string, priority: string }) => ({
     type: TasksTypes.ADD_TASK,
@@ -35,6 +36,11 @@ export const removeTask = (id: number) => ({
         id,
     },
 });
+
+export const sortTasks = (prop: string) => ({
+    type: TasksTypes.SORT_TASKS,
+    payload: prop,
+})
 
 export const loadRequest = () => ({
     type: TasksTypes.LOAD_REQUEST,
