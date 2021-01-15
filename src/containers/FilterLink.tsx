@@ -23,7 +23,6 @@ const FilterLink = ({
                         children,
                         updateFilter,
                         filter,
-                        filterSelected,
                     }: Props) => (
     <span
         role="presentation"

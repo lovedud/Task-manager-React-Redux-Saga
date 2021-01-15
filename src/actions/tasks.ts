@@ -37,7 +37,7 @@ export const removeTask = (id: number) => ({
     },
 });
 
-export const sortTasks = (prop: string) => ({
+export const sortTasks = (prop: boolean) => ({
     type: TasksTypes.SORT_TASKS,
     payload: prop,
 })

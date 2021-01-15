@@ -1,32 +1,32 @@
 {
   "tasks": [
     {
-      "text": "gfghdfg",
+      "text": "Task1",
       "editing": false,
-      "complete": false,
+      "complete": true,
       "priority": "Low",
       "id": 5
     },
     {
-      "text": "fgfgbfg",
+      "text": "Task4",
       "editing": false,
       "complete": false,
       "priority": "High",
       "id": 7
     },
     {
-      "text": "klk",
+      "text": "Task3",
       "editing": false,
       "complete": false,
       "priority": "Important",
       "id": 8
     },
     {
-      "text": "fdgdfg",
+      "text": "Task2",
       "editing": false,
       "complete": false,
-      "priority": "Important",
-      "id": 9
+      "priority": "Low",
+      "id": 10
     }
   ]
 }

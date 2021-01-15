@@ -179,7 +179,27 @@ body {
         appearance: none;
         background-color: #fff;
       }
+
+      span {
+        margin-left: 20rem;
+        .high_priority {
+          background-color: #c61d1d;
+          color: #ffffff;
+        }
+
+        .imp_priority {
+          background-color: #309828;
+          color: #ffffff;
+        }
+
+        .low_priority {
+          background-color: #25eada;
+          color: #ffffff;
+        }
+      }
+
     }
+
 
     .items {
       margin: 1rem 0;

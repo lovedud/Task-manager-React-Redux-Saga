@@ -5,16 +5,18 @@ import Header from '../components/Header';
 import TodoFilters from '../components/TodoFilters';
 import TodoForm from '../components/TodoForm';
 import TodoTask from '../components/TodoItem';
-import {ApplicationState, Task, VisibilityFilters} from '../types';
+import {ApplicationState, Task, TasksTypes, VisibilityFilters} from '../types';
 import TodoMessage from '../components/TodoMessage';
-import {addTask, loadRequest, removeTask, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
-import {getTodos} from "../selectors";
+import {addTask, loadRequest, removeTask, sortTasks, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
+import { getTodos } from "../selectors";
 
 interface StateProps {
     tasks: Task[],
     filterState: string,
     filter: string,
-    sortState: boolean
+    sortState: boolean,
+    filtering: boolean,
+    priorityFilter: string,
 }
 
 interface DispatchProps {
@@ -25,6 +27,8 @@ interface DispatchProps {
     removeTask(id: number): void,
     loadRequest(): void,
     onSortTasks(prop: boolean): void,
+    setFiltering(filtering: boolean): void,
+    updatePriority(prior: string): void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -32,7 +36,7 @@ type Props = StateProps & DispatchProps;
 const TodoList = ({
                       tasks,
                       filter,
-                      sortState,
+                      filtering,
                       addTask,
                       toggleTask,
                       toggleEditTask,
@@ -41,6 +45,8 @@ const TodoList = ({
                       filterState,
                       loadRequest,
                       onSortTasks,
+                      setFiltering,
+                      updatePriority,
                   }: Props) => {
 
     const [checked, setChecked] = useState(true);
@@ -114,6 +120,31 @@ const TodoList = ({
                     </span>
 
                     <span>
+                        <span>
+                            <button onClick={() => {
+                                setFiltering(false)
+                            }}>
+                            All
+                        </button>
+                        <button className="high_priority" onClick={() => {
+                            updatePriority('High')
+                            setFiltering(true)
+                        }}>
+                            High
+                        </button>
+                        <button className="imp_priority" onClick={() => {
+                            updatePriority('Important')
+                            setFiltering(true)
+                        }}>
+                            Important
+                        </button>
+                        <button className="low_priority" onClick={() => {
+                            updatePriority('Low')
+                            setFiltering(true)
+                        }}>
+                            Low
+                        </button>
+                        </span>
 
                     </span>
                 </div>
@@ -162,7 +193,9 @@ const filterItems = (items: Task[], filter: string) => {
 const mapStateToProps = (state: ApplicationState) => ({
     tasks: getTodos(state),
     filterState: state.filterState,
-    sortState: state.sortTasks
+    sortState: state.sortTasks,
+    priorityFilter: state.priorityFilter,
+    filtering: state.filtering
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -173,7 +206,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         updateTask: (id: number, text: string) => dispatch(updateTask(id, text)),
         removeTask: (id: number) => dispatch(removeTask(id)),
         loadRequest: () => dispatch(loadRequest()),
-        onSortTasks: (prop: boolean) => {dispatch({ type: 'SORT_TASKS', payload: prop })}
+        onSortTasks: (prop: boolean) => dispatch(sortTasks(prop)),
+        setFiltering: (filtering: boolean) => dispatch({type: 'SET_FILTERING', payload: filtering}),
+        updatePriority: (prior: string) => dispatch({type: 'UPDATE__PRIORITY_FILTER', payload: prior}),
     }
 }
 
