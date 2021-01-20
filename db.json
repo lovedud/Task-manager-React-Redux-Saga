@@ -3,14 +3,14 @@
     {
       "text": "Task1",
       "editing": false,
-      "complete": true,
+      "complete": false,
       "priority": "Low",
       "id": 5
     },
     {
       "text": "Task4",
       "editing": false,
-      "complete": false,
+      "complete": true,
       "priority": "High",
       "id": 7
     },

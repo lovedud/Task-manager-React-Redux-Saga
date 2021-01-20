@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
-import {ApplicationState, Task} from "../types";
+import { Task } from "../types";
 
-const getTasks = (state: ApplicationState) => state.tasks.data
-const sortFilter = (state: ApplicationState) => state.sortTasks
-const priorityFilter = (state: ApplicationState) => state.priorityFilter
-const filtering = (state: ApplicationState) => state.filtering
+const getTasks = (state: any) => state.tasks.tasks.data
+const sortFilter = (state: any) => state.tasks.sortTasks
+const priorityFilter = (state: any) => state.tasks.priorityFilter
+const filtering = (state: any) => state.tasks.filtering
 
 export const getTodos = createSelector(
     [ getTasks,  sortFilter, priorityFilter, filtering],
@@ -15,5 +15,3 @@ export const getTodos = createSelector(
         return newTasks;
     }
 )
-
-

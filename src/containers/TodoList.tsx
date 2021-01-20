@@ -36,7 +36,6 @@ type Props = StateProps & DispatchProps;
 const TodoList = ({
                       tasks,
                       filter,
-                      filtering,
                       addTask,
                       toggleTask,
                       toggleEditTask,
@@ -57,7 +56,7 @@ const TodoList = ({
     }, [loadRequest]);
 
     const isAllChecked = () => {
-        return tasks.every(task => (task.complete))
+        return tasks.every((task) => (task.complete))
     }
 
     const getTaskCounter = () => (filterState === VisibilityFilters.SHOW_COMPLETED
