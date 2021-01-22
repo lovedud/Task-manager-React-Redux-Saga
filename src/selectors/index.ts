@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { Task } from "../types";
 
-const getTasks = (state: any) => state.tasks.tasks.data
+const getTasks = (state: any) => state.tasks.tasks
 const sortFilter = (state: any) => state.tasks.sortTasks
 const priorityFilter = (state: any) => state.tasks.priorityFilter
 const filtering = (state: any) => state.tasks.filtering
@@ -12,6 +12,7 @@ export const getTodos = createSelector(
         let newTasks = tasks;
         newTasks = filtering ? newTasks.filter((task: Task) => task.priority === priorityFilter) : newTasks;
         newTasks = sortFilter ? newTasks.sort((a,b) => a.priority > b.priority ? 1 : -1) : newTasks;
+        console.log(newTasks)
         return newTasks;
     }
 )

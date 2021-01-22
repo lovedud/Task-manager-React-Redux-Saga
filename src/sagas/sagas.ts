@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import api from './api';
-import { TodoListActionTypes } from '../types';
+import { TaskActionTypes, TodoListActionTypes } from '../types';
 import { loadFailure, loadSuccess } from '../actions/tasks';
 
 export function* load() {
@@ -20,7 +20,7 @@ export function* addTask({ payload }: TodoListActionTypes) {
     }
 }
 
-export function* toggleEditTask({ payload }: TodoListActionTypes) {
+export function* toggleEditTask({ payload }: TaskActionTypes) {
     try {
         yield call(api.patch, `http://localhost:3000/tasks/${payload.id}`, {editing: payload.editing});
     } catch (error) {
@@ -28,7 +28,7 @@ export function* toggleEditTask({ payload }: TodoListActionTypes) {
     }
 }
 
-export function* updateTask({ payload }: TodoListActionTypes) {
+export function* updateTask({ payload }: TaskActionTypes) {
     try {
         yield call(api.patch, `http://localhost:3000/tasks/${payload.id}`, {text: payload.text});
     } catch (error) {
@@ -36,7 +36,7 @@ export function* updateTask({ payload }: TodoListActionTypes) {
     }
 }
 
-export function* toggleTask({ payload }: TodoListActionTypes) {
+export function* toggleTask({ payload }: TaskActionTypes) {
     try {
         yield call(api.patch, `http://localhost:3000/tasks/${payload.id}`, {complete: payload.complete});
     } catch (error) {
@@ -44,7 +44,7 @@ export function* toggleTask({ payload }: TodoListActionTypes) {
     }
 }
 
-export function* deleteRequest({ payload }: TodoListActionTypes) {
+export function* deleteRequest({ payload }: TaskActionTypes) {
     try {
         yield call(api.delete, `http://localhost:3000/tasks/${payload.id}`);
     } catch (error) {

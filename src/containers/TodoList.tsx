@@ -49,7 +49,6 @@ const TodoList = ({
                   }: Props) => {
 
     const [checked, setChecked] = useState(true);
-    const [sorted, setSorted] = useState(false)
 
     useEffect(() => {
         loadRequest();
@@ -90,8 +89,7 @@ const TodoList = ({
     }
 
     const sortingTasks = () => {
-        setSorted(!sorted);
-        onSortTasks(sorted)
+        onSortTasks(true)
     }
 
     return (
@@ -189,7 +187,7 @@ const filterItems = (items: Task[], filter: string) => {
     }
 };
 
-const mapStateToProps = (state: ApplicationState) => ({
+const mapStateToProps = (state: any) => ({
     tasks: getTodos(state),
     filterState: state.filterState,
     sortState: state.sortTasks,
@@ -199,12 +197,12 @@ const mapStateToProps = (state: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
+        loadRequest: () => dispatch(loadRequest()),
         addTask: (data: { text: string, editing: boolean, complete: boolean, priority: string }) => dispatch(addTask(data)),
         toggleTask: (id: number, complete: boolean) => dispatch(toggleTask(id, complete)),
         toggleEditTask: (id: number, editing: boolean) => dispatch(toggleEditTask(id, editing)),
         updateTask: (id: number, text: string) => dispatch(updateTask(id, text)),
         removeTask: (id: number) => dispatch(removeTask(id)),
-        loadRequest: () => dispatch(loadRequest()),
         onSortTasks: (prop: boolean) => dispatch(sortTasks(prop)),
         setFiltering: (filtering: boolean) => dispatch({type: 'SET_FILTERING', payload: filtering}),
         updatePriority: (prior: string) => dispatch({type: 'UPDATE__PRIORITY_FILTER', payload: prior}),
