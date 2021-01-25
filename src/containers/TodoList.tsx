@@ -36,6 +36,7 @@ type Props = StateProps & DispatchProps;
 const TodoList = ({
                       tasks,
                       filter,
+                      sortState,
                       addTask,
                       toggleTask,
                       toggleEditTask,
@@ -89,7 +90,7 @@ const TodoList = ({
     }
 
     const sortingTasks = () => {
-        onSortTasks(true)
+        onSortTasks(!sortState)
     }
 
     return (
@@ -190,7 +191,7 @@ const filterItems = (items: Task[], filter: string) => {
 const mapStateToProps = (state: any) => ({
     tasks: getTodos(state),
     filterState: state.filterState,
-    sortState: state.sortTasks,
+    sortState: state.tasks.sortTasks,
     priorityFilter: state.priorityFilter,
     filtering: state.filtering
 });
