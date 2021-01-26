@@ -1,13 +1,6 @@
 {
   "tasks": [
     {
-      "text": "Task4",
-      "editing": false,
-      "complete": false,
-      "priority": "High",
-      "id": 7
-    },
-    {
       "text": "Task3",
       "editing": false,
       "complete": false,
@@ -27,6 +20,13 @@
       "complete": false,
       "priority": "Important",
       "id": 11
+    },
+    {
+      "text": "Task4",
+      "editing": false,
+      "complete": false,
+      "priority": "High",
+      "id": 13
     }
   ]
 }

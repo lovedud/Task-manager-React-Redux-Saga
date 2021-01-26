@@ -10,6 +10,12 @@ const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
     const inputText = useRef<HTMLInputElement>(null);
     const [priority, setPriority] = useState('Important');
 
+    const focusInputText = () => inputText?.current?.focus();
+
+    useEffect(() => {
+        if (emptyList) focusInputText();
+    });
+
     const submitHandler = (e: FormEvent) => {
         e.preventDefault();
 
@@ -23,7 +29,7 @@ const TodoForm = ({ emptyList, addTask }: TodoFormProps) => {
 
     return (
         <form onSubmit={submitHandler}>
-            <input autoFocus={true} placeholder="What needs to be done?"  />
+            <input autoFocus={true} ref={inputText} placeholder="What needs to be done?"  />
 
             <Dropdown priority={priority} setPriority={setPriority} />
 
