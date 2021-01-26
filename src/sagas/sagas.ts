@@ -1,7 +1,8 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import api from './api';
-import { TaskActionTypes, TodoListActionTypes } from '../types';
+import {Task, TaskActionTypes, TodoListActionTypes} from '../types';
 import { loadFailure, loadSuccess } from '../actions/tasks';
+import {completedTasksSelector, getTasksSelector} from '../selectors/index';
 
 export function* load() {
     try {
@@ -52,10 +53,27 @@ export function* deleteRequest({ payload }: TaskActionTypes) {
     }
 }
 
+// костыли, исправить
+
 export function* checkAll() {
     try {
-        yield call(api.get, `http://localhost:3000/checkAll/`);
+        const tasks = yield select(getTasksSelector);
+        yield call(api.patch, `http://localhost:3000/tasks`, tasks)
+
     } catch (error) {
         console.log('CHECK ALL ERROR');
     }
+}
+
+export function* deleteTask(id: number) {
+    try {
+        yield call(api.delete, `http://localhost:3000/tasks/${id}`);
+    } catch (error) {
+        console.log('DELETE ERROR');
+    }
+}
+
+export function* deleteCompleted() {
+    const tasks = yield select(completedTasksSelector);
+    tasks.forEach((task: Task) => deleteTask(task.id))
 }

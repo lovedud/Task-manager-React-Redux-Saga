@@ -5,7 +5,7 @@ import {
     SortActionType,
     FilterActionType,
     SetFilteringActionType,
-    TodoListActionTypes
+    TodoListActionTypes, SetAllCheckedActionType
 } from '../types';
 import { handleActions } from 'redux-actions';
 
@@ -15,6 +15,7 @@ const initialState: ApplicationState = {
     sortTasks: false,
     filtering: false,
     priorityFilter: '',
+    isAllChecked: false,
 };
 
 const tasksReducer = handleActions<ApplicationState, any>({
@@ -62,29 +63,41 @@ const tasksReducer = handleActions<ApplicationState, any>({
 
     [actionTypes.TOGGLE_TASK]: (state: ApplicationState, action: TaskActionTypes) => ({
         ...state,
-        tasks:  state.tasks.map((item) => ((item.id === action.payload.id)
-                ? { ...item, complete: action.payload.complete }
-                : item)),
+        tasks:  state.tasks.map((task) => ((task.id === action.payload.id)
+                ? { ...task, complete: action.payload.complete }
+                : task)),
     }),
 
     [actionTypes.TOGGLE_EDIT_TASK]: (state: ApplicationState, action: TaskActionTypes) => ({
         ...state,
-        tasks: state.tasks.map((item) => ((item.id === action.payload.id)
-                ? {...item, editing: !item.editing}
-                : item)),
+        tasks: state.tasks.map((task) => ((task.id === action.payload.id)
+                ? {...task, editing: !task.editing}
+                : task)),
     }),
 
     [actionTypes.UPDATE_TASK]: (state: ApplicationState, action: TaskActionTypes) => ({
         ...state,
-        tasks:  state.tasks.map((item) => ((item.id === action.payload.id)
-                ? {...item, text: action.payload.text}
-                : item)),
+        tasks:  state.tasks.map((task) => ((task.id === action.payload.id)
+                ? {...task, text: action.payload.text}
+                : task)),
     }),
 
     [actionTypes.REMOVE_TASK]: (state: ApplicationState, action: TaskActionTypes) => ({
         ...state,
-        tasks:  state.tasks.filter((item) => item.id !== action.payload.id),
+        tasks: state.tasks.filter((task) => task.id !== action.payload.id),
     }),
+
+    [actionTypes.CHECK_ALL]: (state: ApplicationState, action: SetAllCheckedActionType) => ({
+        ...state,
+        isAllChecked: action.payload,
+        tasks: state.tasks.map((task) => ({...task, complete: action.payload}))
+    }),
+
+    [actionTypes.DELETE_COMPLETED]: (state: ApplicationState) => ({
+        ...state,
+        tasks: state.tasks.filter((task) => !task.complete)
+    })
+
 
 }, initialState)
 

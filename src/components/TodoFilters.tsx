@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import FilterLink from '../containers/FilterLink';
-import { VisibilityFilters } from '../types';
+import { actionTypes } from '../types';
 
 interface CounterProps {
     taskCounter: {
@@ -21,13 +21,13 @@ const Counter = ({ taskCounter: { counter, text } }: CounterProps) => (
         </div>
         <div className="filters">
             <Link to="/">
-                <FilterLink filter={VisibilityFilters.SHOW_ALL}>All</FilterLink>
+                <FilterLink filter={actionTypes.SHOW_ALL}>All</FilterLink>
             </Link>
             <Link to="/active">
-                <FilterLink filter={VisibilityFilters.SHOW_ACTIVE}>Active</FilterLink>
+                <FilterLink filter={actionTypes.SHOW_ACTIVE}>Active</FilterLink>
             </Link>
             <Link to="/done">
-                <FilterLink filter={VisibilityFilters.SHOW_COMPLETED}>Completed</FilterLink>
+                <FilterLink filter={actionTypes.SHOW_COMPLETED}>Completed</FilterLink>
             </Link>
         </div>
     </div>

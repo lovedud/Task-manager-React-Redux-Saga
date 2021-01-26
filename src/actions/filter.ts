@@ -1,7 +1,7 @@
-import { VisibilityFilters } from '../types';
+import { actionTypes } from '../types';
 
 export const updateFilter = (filter: string) => ({
-    type: VisibilityFilters.UPDATE_FILTER,
+    type: actionTypes.UPDATE_FILTER,
     payload: {
         filter,
     },

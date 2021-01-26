@@ -1,13 +1,14 @@
 import { createSelector } from 'reselect'
-import { Task } from "../types";
+import {Task} from "../types";
 
-const getTasks = (state: any) => state.tasks.tasks
-const sortTasks = (state: any) => state.tasks.sortTasks
-const priorityFilter = (state: any) => state.tasks.priorityFilter
-const filtering = (state: any) => state.tasks.filtering
+export const getTasksSelector = (state: any) => state.tasks.tasks
+export const sortTasksSelector = (state: any) => state.tasks.sortTasks
+export const setFilteringSelector = (state: any) => state.tasks.filtering
+export const priorityFilterSelector = (state: any) => state.tasks.priorityFilter
+export const filterStateSelector = (state: any) => state.tasks.filterState
 
-export const getTodos = createSelector(
-    [ getTasks,  sortTasks, priorityFilter, filtering],
+export const getSorterFilteredTasksSelector = createSelector(
+    [ getTasksSelector,  sortTasksSelector, priorityFilterSelector, setFilteringSelector],
     (tasks: Task[], sortTasks: boolean, priorityFilter: string, filtering: boolean) => {
         let newTasks = tasks;
         newTasks = filtering ? newTasks.filter((task: Task) => task.priority === priorityFilter) : newTasks;
@@ -16,8 +17,14 @@ export const getTodos = createSelector(
     }
 )
 
-/*
-export const getSortedTodos = createSelector(
-    getTodos,
-    tasks => tasks.sort((a: Task,b: Task) => a.priority > b.priority)
-)*/
+export const isAllCheckedSelector = createSelector(
+    getTasksSelector,
+    tasks => tasks.every((task: Task) => (task.complete))
+)
+
+export const completedTasksSelector = createSelector(
+    getTasksSelector,
+    tasks => tasks.filter((task: Task) => task.complete)
+)
+
+

@@ -1,14 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Header from '../components/Header';
 import TodoFilters from '../components/TodoFilters';
 import TodoForm from '../components/TodoForm';
 import TodoTask from '../components/TodoItem';
-import {ApplicationState, Task, TasksTypes, VisibilityFilters} from '../types';
+import { actionTypes, Task } from '../types';
 import TodoMessage from '../components/TodoMessage';
-import {addTask, loadRequest, removeTask, sortTasks, toggleEditTask, toggleTask, updateTask} from "../actions/tasks";
-import { getTodos } from "../selectors";
+import {
+    addTask,
+    checkAll, deleteCompleted,
+    loadRequest,
+    removeTask,
+    setFiltering,
+    sortTasks,
+    toggleEditTask,
+    toggleTask,
+    updatePriority,
+    updateTask
+} from "../actions/tasks";
+import {
+    filterStateSelector,
+    getSorterFilteredTasksSelector,
+    isAllCheckedSelector,
+    priorityFilterSelector,
+    setFilteringSelector,
+    sortTasksSelector
+} from "../selectors";
 
 interface StateProps {
     tasks: Task[],
@@ -17,6 +35,7 @@ interface StateProps {
     sortState: boolean,
     filtering: boolean,
     priorityFilter: string,
+    isAllChecked: boolean
 }
 
 interface DispatchProps {
@@ -29,6 +48,8 @@ interface DispatchProps {
     onSortTasks(prop: boolean): void,
     setFiltering(filtering: boolean): void,
     updatePriority(prior: string): void,
+    checkAll(isAllChecked: boolean): void,
+    deleteCompleted(): void,
 }
 
 type Props = StateProps & DispatchProps;
@@ -36,6 +57,7 @@ type Props = StateProps & DispatchProps;
 const TodoList = ({
                       tasks,
                       filter,
+                      isAllChecked,
                       sortState,
                       addTask,
                       toggleTask,
@@ -47,19 +69,16 @@ const TodoList = ({
                       onSortTasks,
                       setFiltering,
                       updatePriority,
+                      checkAll,
+                      deleteCompleted,
                   }: Props) => {
 
-    const [checked, setChecked] = useState(true);
 
     useEffect(() => {
         loadRequest();
     }, [loadRequest]);
 
-    const isAllChecked = () => {
-        return tasks.every((task) => (task.complete))
-    }
-
-    const getTaskCounter = () => (filterState === VisibilityFilters.SHOW_COMPLETED
+    const getTaskCounter = () => (filterState === actionTypes.SHOW_COMPLETED
         ? {
             counter: tasks.filter((task: Task) => task.complete).length,
             text: 'completed tasks',
@@ -68,30 +87,13 @@ const TodoList = ({
             text: 'tasks left',
         });
 
-    const checkAll = () => {
-        setChecked(isAllChecked())
-        if (checked) {
-            tasks.forEach((task) => {
-                toggleTask(task.id, true)
-            })
-        } else if (!checked) {
-            tasks.forEach((task) => {
-                toggleTask(task.id, false)
-            })
-        }
-    }
-
-    const deleteCompleted = () => {
-        tasks.forEach((task) => {
-            if (task.complete) {
-                removeTask(task.id)
-            }
-        })
-    }
-
     const sortingTasks = () => {
         onSortTasks(!sortState)
     }
+
+    const checkAllTasks = () => (
+        checkAll(!isAllChecked)
+    )
 
     return (
         <div className="todo-list">
@@ -103,7 +105,7 @@ const TodoList = ({
                         emptyList={!tasks.length}
                         addTask={addTask}
                     />
-                    <button className={isAllChecked() ? 'check-all checked' : 'check-all'} onClick={checkAll}>
+                    <button className={isAllChecked ? 'check-all checked' : 'check-all'} onClick={checkAllTasks}>
                         <i className="fas fa-check-circle"></i>
                     </button>
                     <button className="check-all" onClick={deleteCompleted}>
@@ -189,11 +191,12 @@ const filterItems = (items: Task[], filter: string) => {
 };
 
 const mapStateToProps = (state: any) => ({
-    tasks: getTodos(state),
-    filterState: state.filterState,
-    sortState: state.tasks.sortTasks,
-    priorityFilter: state.priorityFilter,
-    filtering: state.filtering
+    tasks: getSorterFilteredTasksSelector(state),
+    isAllChecked: isAllCheckedSelector(state),
+    sortState: sortTasksSelector(state),
+    filterState: filterStateSelector(state),
+    priorityFilter: priorityFilterSelector(state),
+    filtering: setFilteringSelector(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -205,8 +208,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         updateTask: (id: number, text: string) => dispatch(updateTask(id, text)),
         removeTask: (id: number) => dispatch(removeTask(id)),
         onSortTasks: (prop: boolean) => dispatch(sortTasks(prop)),
-        setFiltering: (filtering: boolean) => dispatch({type: 'SET_FILTERING', payload: filtering}),
-        updatePriority: (prior: string) => dispatch({type: 'UPDATE__PRIORITY_FILTER', payload: prior}),
+        setFiltering: (filtering: boolean) => dispatch(setFiltering(filtering)),
+        updatePriority: (prior: string) => dispatch(updatePriority(prior)),
+        checkAll: (isAllChecked: boolean) => dispatch(checkAll(isAllChecked)),
+        deleteCompleted: () => dispatch(deleteCompleted())
     }
 }
 

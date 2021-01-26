@@ -1,5 +1,5 @@
 import React from 'react';
-import { VisibilityFilters } from '../types';
+import {actionTypes} from '../types';
 import EmptyMessage from './EmptyMessage';
 import TodoFilters from './TodoFilters';
 
@@ -12,7 +12,7 @@ interface MessageProps {
 }
 
 const Message = ({ filterState, getTaskCounter }: MessageProps) => (
-    filterState === VisibilityFilters.SHOW_COMPLETED
+    filterState === actionTypes.SHOW_COMPLETED
         ? (
             <>
                 <EmptyMessage message="There are no tasks completed yet!" />
